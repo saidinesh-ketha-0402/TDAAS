@@ -1,0 +1,7 @@
+<modus-navbar id="blue-theme" variant="blue" (profileMenuSignOutClick) = "OnSignoutClick($event)" >
+</modus-navbar>
+
+<modus-tabs (tabChange) = "OnTabChange($event)"></modus-tabs>
+<app-prompt2-code *ngIf="visibleComponent === 'prompt2code'"></app-prompt2-code>
+<app-image2-code *ngIf="visibleComponent === 'image2code'"></app-image2-code>
+<app-code2-code *ngIf="visibleComponent === 'code2code'"></app-code2-code>

@@ -1,0 +1,47 @@
+.mainContainer {
+    margin-top: 75px;
+    margin-left: 37.5px;
+    margin-right: 37.5px;
+}
+
+.rootContainer {
+    position: relative;
+    height: 50vh;
+}
+
+.codeContainer {
+    padding: 20px;
+    height: inherit;
+}
+
+.codeContainerHeader {
+    height: 32px;
+    width: inherit;
+    background-color: #cbcdd6;
+    display: flex;
+    justify-content: flex-end;
+}
+
+.codeContainerBodyRoot {
+    background-color: black;
+    height: inherit;
+    overflow: auto;
+    scrollbar-color: #cbcdd6;
+}
+
+.codeContainerBodyContent {
+    font-family: sans-serif;
+    color: white;
+    padding: 10px;
+    white-space: pre-wrap;
+    white-space: -moz-pre-wrap;
+    white-space: -pre-wrap;
+    white-space: -o-pre-wrap;
+    word-wrap: break-word;
+}
+
+.outputRenderer {
+    border: 1px solid black;
+    height: inherit;
+    overflow: auto;
+}
