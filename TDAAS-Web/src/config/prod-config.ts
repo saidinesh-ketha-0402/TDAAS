@@ -1,7 +1,7 @@
-const APP_URL_BASE = "https://victorious-sea-08489dc10.4.azurestaticapps.net/authenticated";
-//const APP_URL_BASE = "http://localhost:4200/authenticated";
-const APP_LOGOUT_URL = "https://victorious-sea-08489dc10.4.azurestaticapps.net/authentication";
-//const APP_LOGOUT_URL = "http://localhost:4200/authentication";
+const APP_URL_BASE = "https://lemon-hill-0f0bd0a0f.5.azurestaticapps.net/authenticated";
+// const APP_URL_BASE = "http://localhost:4200/authenticated";
+const APP_LOGOUT_URL = "https://lemon-hill-0f0bd0a0f.5.azurestaticapps.net/authentication";
+// const APP_LOGOUT_URL = "http://localhost:4200/authentication";
 const TID_URL_BASE = "https://id.trimble.com"
 const TDAAS_ASSISTANT_ID = "tdaas-backend"
 const TRIMBLE_ASSISTANT_AGENTS_URL = "https://agw.construction-integration.trimble.cloud/trimbledeveloperprogram/assistants/v1/agents/"
