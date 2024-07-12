@@ -12,7 +12,6 @@ export class AssistantService {
   public async GetAssistantResponseForMessage(message: string): Promise<string | undefined> {
     let parameters = {
       "message": message,
-      "session_id": " ",
       "stream": false,
       "model_id": "gpt-4o"
     }

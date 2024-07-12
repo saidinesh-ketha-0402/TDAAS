@@ -18,7 +18,7 @@
     "@angular/platform-browser": "^16.2.0",
     "@angular/platform-browser-dynamic": "^16.2.0",
     "@angular/router": "^16.2.0",
-    "@trimble-oss/modus-web-components": "^0.5.1",
+    "@trimble-oss/modus-web-components": "^0.33.1",
     "@types/crypto-js": "^4.2.2",
     "crypto-js": "^4.2.0",
     "jwt-decode": "^4.0.0",
