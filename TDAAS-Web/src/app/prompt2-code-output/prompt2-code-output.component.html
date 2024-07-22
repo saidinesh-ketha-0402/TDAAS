@@ -14,9 +14,9 @@
                 </modus-button>
             </div>
             <div class="codeContainerBodyRoot">
-                <code><div class="codeContainerBodyContent">
-                    {{outputHTMLCode}}
-                </div></code>
+                <pre><code class="language-html"><div class="codeContainerBodyContent" [innerHTML]="outputHTMLCode">
+                    
+                </div></code></pre>
             </div>
         </div>
         <div class="col-6 codeContainer" [hidden]=!showCode>
@@ -31,9 +31,9 @@
                 </modus-button>
             </div>
             <div class="codeContainerBodyRoot">
-                <code><div class="codeContainerBodyContent">
-                    {{outputScriptCode}}
-                </div></code>
+                <pre><code class="language-typescript"><div class="codeContainerBodyContent" [innerHTML]="outputScriptCode">
+                   
+                </div></code></pre>
             </div>
         </div>
     </div>

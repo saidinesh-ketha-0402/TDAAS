@@ -2,6 +2,9 @@ import { Component, ElementRef, EventEmitter, Input, Output, SimpleChanges } fro
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 import { timer } from 'rxjs';
 import {transpile} from 'typescript';
+import hljs from 'highlight.js';
+import typescript from 'highlight.js/lib/languages/typescript';
+import html from 'highlight.js/lib/languages/xml';
 
 @Component({
   selector: 'app-prompt2-code-output',
@@ -18,7 +21,8 @@ export class Prompt2CodeOutputComponent {
   private outputJSCode = ""
 
   constructor(private sanitizer: DomSanitizer, private elementRef: ElementRef) {
-
+    hljs.registerLanguage('typescript', typescript);
+    hljs.registerLanguage('html', html);
   }
 
   @Input() set hidden(value: boolean) {
@@ -32,6 +36,7 @@ export class Prompt2CodeOutputComponent {
     if (changes['outputHTMLCode']) {
       //console.log("property change" + this.outputHTMLCode)
       this.outputContent = this.sanitizer.bypassSecurityTrustHtml(this.outputHTMLCode)
+      this.outputHTMLCode = hljs.highlight(this.outputHTMLCode, { language: 'html' }).value
     }
     
     if (changes['outputScriptCode']) {
@@ -41,6 +46,7 @@ export class Prompt2CodeOutputComponent {
       timer(delayMilliseconds).subscribe(() => {
         eval(this.outputJSCode)
       });
+      this.outputScriptCode = hljs.highlight(this.outputScriptCode, { language: 'typescript' }).value
     }
   }
 

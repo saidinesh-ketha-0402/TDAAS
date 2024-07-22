@@ -16,12 +16,12 @@ export class Prompt2CodeComponent {
   public progressBarValue = 0
   public progressBarMaxValue = 5
   public progressBarHidden = true
+  private progressBarIntervalId: any = null;
   public showAlert: boolean = false
 
   public showOutput: boolean = false
   public outputHTMLCode: string = ""
   public outputScriptCode: string = ""
-
 
   constructor(private authService: AuthenticationService,
     private assistantService: AssistantService,
@@ -30,6 +30,8 @@ export class Prompt2CodeComponent {
 
   public async generateClicked(textArea: any) {
     console.log(textArea.value);
+    // this.progressBarValue = 0;
+    console.log("After pressing Generate : " + this.progressBarValue);
     this.showAlert = false
     this.displayProgressBar()
     var isAutherized = await this.authService.ValidateAuthentication()
@@ -42,6 +44,8 @@ export class Prompt2CodeComponent {
     console.log("Response result is " + response);
     this.progressBarValue = 0;
     this.progressBarHidden = true;
+    this.onResponseReceived();
+    console.log("After response generation : " + this.progressBarValue);
     
     if(response == undefined){
       this.showAlert = true
@@ -57,34 +61,67 @@ export class Prompt2CodeComponent {
       this.showAlert = true;
       return;
     }
+
+    if(this.outputScriptCode == ""){
+      this.outputScriptCode = "// No typescript code required for this query.";
+    }
+
     this.showOutput = true
   }
 
   public onBackPressed() {
+    console.log("Before pressing Back : " + this.progressBarValue);
     this.showOutput = false;
     this.progressBarHidden = true;
     this.showAlert = false;
     this.progressBarValue = 0;
+    console.log("After pressing Back : " + this.progressBarValue);
   }
 
   private displayProgressBar() {
-    this.progressBarHidden = false
-    const intervalWithLimit = setInterval(() => {
-      this.progressBarValue++
-
+    this.progressBarHidden = false;
+    // Store the interval ID
+    this.progressBarIntervalId = setInterval(() => {
+      this.progressBarValue++;
+  
       if (this.progressBarValue == this.progressBarMaxValue - 1) {
-        clearInterval(intervalWithLimit);
+        clearInterval(this.progressBarIntervalId);
       }
-    }, 10000);
+    }, 5000);
   }
+  
+  // Method to be called after receiving a response
+  private onResponseReceived() {
+    // Clear the interval if it's running
+    if (this.progressBarIntervalId !== null) {
+      clearInterval(this.progressBarIntervalId);
+      this.progressBarIntervalId = null; // Reset the ID
+    }
+    // Additional response handling logic here
+  }
+
+  // private extractCodeBlocks(input: string, language: string): string {
+  //   const startMarker = `\`\`\`${language}`;
+  //   const endMarker = `\`\`\``;
+  //   const startIndex = input.indexOf(startMarker) + startMarker.length;
+  //   const endIndex = input.indexOf(endMarker, startIndex);
+  //   if (startIndex < 0 || endIndex < 0) {
+  //     return ''; // Return an empty string if markers are not found
+  //   }
+  //   return input.substring(startIndex, endIndex).trim();
+  // }
 
   private extractCodeBlocks(input: string, language: string): string {
     const startMarker = `\`\`\`${language}`;
     const endMarker = `\`\`\``;
-    const startIndex = input.indexOf(startMarker) + startMarker.length;
+    const markerIndex = input.indexOf(startMarker);
+    if (markerIndex === -1) {
+      return ''; // Return an empty string immediately if the start marker is not found
+    }
+    const startIndex = markerIndex + startMarker.length;
     const endIndex = input.indexOf(endMarker, startIndex);
-    if (startIndex < 0 || endIndex < 0) {
-      return ''; // Return an empty string if markers are not found
+    if (endIndex < 0) {
+      return ''; // Return an empty string if the end marker is not found
     }
     return input.substring(startIndex, endIndex).trim();
   }
