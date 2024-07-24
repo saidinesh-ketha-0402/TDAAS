@@ -9,8 +9,11 @@
     width: 100%;
     margin-right: auto;
     margin-left: auto;
+    align-items: end;
 }
 
 .generateButton {
     margin-top: 36px;
+    margin-bottom: 60px;
+    align-items: end;
 }

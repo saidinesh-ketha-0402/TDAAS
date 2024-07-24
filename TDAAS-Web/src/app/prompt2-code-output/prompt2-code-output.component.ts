@@ -13,6 +13,8 @@ import html from 'highlight.js/lib/languages/xml';
 })
 export class Prompt2CodeOutputComponent {
   public outputContent: SafeHtml = ""
+  public copiedCode = "Code Copied!"
+  public copiedScript = "Script Copied!"
   @Input() public outputHTMLCode = "Code"
   @Input() public outputScriptCode = "Script"
   @Output() public backPressed = new EventEmitter()
@@ -36,16 +38,18 @@ export class Prompt2CodeOutputComponent {
     if (changes['outputHTMLCode']) {
       //console.log("property change" + this.outputHTMLCode)
       this.outputContent = this.sanitizer.bypassSecurityTrustHtml(this.outputHTMLCode)
+      this.copiedCode = this.outputHTMLCode
       this.outputHTMLCode = hljs.highlight(this.outputHTMLCode, { language: 'html' }).value
     }
     
     if (changes['outputScriptCode']) {
-      //console.log("property change" + this.outputScriptCode)
+      console.log("property change\n\n" + this.outputScriptCode)
       this.outputJSCode = transpile(this.outputScriptCode)
       const delayMilliseconds = 2000; // 2 seconds
       timer(delayMilliseconds).subscribe(() => {
         eval(this.outputJSCode)
       });
+      this.copiedScript = this.outputScriptCode
       this.outputScriptCode = hljs.highlight(this.outputScriptCode, { language: 'typescript' }).value
     }
   }
@@ -63,11 +67,11 @@ export class Prompt2CodeOutputComponent {
   }
 
   public onCopyCodeClicked() {
-    this.copyStringToClipboard(this.outputHTMLCode)
+    this.copyStringToClipboard(this.copiedCode)
   }
 
   public onCopyScriptClicked() {
-    this.copyStringToClipboard(this.outputScriptCode)
+    this.copyStringToClipboard(this.copiedScript)
   }
 
   private copyStringToClipboard(data: string) {

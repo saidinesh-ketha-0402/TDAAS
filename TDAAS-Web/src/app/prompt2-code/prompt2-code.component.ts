@@ -31,7 +31,6 @@ export class Prompt2CodeComponent {
   public async generateClicked(textArea: any) {
     console.log(textArea.value);
     // this.progressBarValue = 0;
-    console.log("After pressing Generate : " + this.progressBarValue);
     this.showAlert = false
     this.displayProgressBar()
     var isAutherized = await this.authService.ValidateAuthentication()
@@ -45,7 +44,6 @@ export class Prompt2CodeComponent {
     this.progressBarValue = 0;
     this.progressBarHidden = true;
     this.onResponseReceived();
-    console.log("After response generation : " + this.progressBarValue);
     
     if(response == undefined){
       this.showAlert = true
@@ -70,12 +68,10 @@ export class Prompt2CodeComponent {
   }
 
   public onBackPressed() {
-    console.log("Before pressing Back : " + this.progressBarValue);
     this.showOutput = false;
     this.progressBarHidden = true;
     this.showAlert = false;
     this.progressBarValue = 0;
-    console.log("After pressing Back : " + this.progressBarValue);
   }
 
   private displayProgressBar() {
@@ -87,7 +83,7 @@ export class Prompt2CodeComponent {
       if (this.progressBarValue == this.progressBarMaxValue - 1) {
         clearInterval(this.progressBarIntervalId);
       }
-    }, 5000);
+    }, 10000);
   }
   
   // Method to be called after receiving a response
